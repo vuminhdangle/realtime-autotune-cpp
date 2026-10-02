@@ -1,0 +1,14 @@
+# Executables & Compiled files
+*.o
+*.out
+duplex
+build/
+
+# Output diagnostic files (generated at runtime)
+execution_output/
+*.txt
+!README.txt
+
+# IDE/System specific
+.vscode/
+.DS_Store
