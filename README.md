@@ -111,3 +111,26 @@ The parameters are:
 0      > input channel offset
 0      > output channel offset
 ```
+
+The program succesfully opened the audio stream and started running in real time:
+
+```text
+Stream latency = 0 frames
+
+Running ... press <enter> to quit (buffer frames = 512).
+streamTime = 1.01007
+streamTime = 2.00853
+streamTime = 3.00698
+streamTime = 4.00544
+streamTime = 5.0039
+streamTime = 6.00236
+streamTime = 7.00082
+```
+
+This test was able to run continuously without reporting an audio device or stream error. The buffer size used by the example was 512 frames. At a sampling rate of 44100 Hz, this corresponds to approximately: 
+```text
+512 / 44100 \approx 11.6ms
+```
+of audio per buffer.
+
+This confirms that RtAudio can successfully access the laptop's microphone and audio output in full-duplex mode. This configurations provides the basic audio I/O required for the real-time pitch detection and pitch-shifting algorithms developed in the following sections. 
