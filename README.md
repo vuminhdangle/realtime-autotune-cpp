@@ -20,23 +20,23 @@ Ce projet a été réalisé dans le cadre du cours Traitement du Signal Temps R�
 
 First, the basic complilation tools were installed:
 
-'''bash
+```bash
 sudo apt update
 sudo apt install build-essential
-'''
+```
 
 A dedicated Conda environment was then created for the RtAudio project:
 
-'''bash
+```bash
 conda create -n rtaudio python=3.10 gxx_linux-64 alsa-lib -c conda-forge -y
-'''
+```
 
 The ALSA and PulseAudio-related libraries were also installed:
 
-'''bash
+```bash
 conda activate rtaudio
 conda install -c conda-forge alsa-lib alsa-plugins pulseaudio
-'''
+```
 
 The rtaudio Conda environment is used to isolate the dependencies required by the project. 
 
@@ -46,9 +46,9 @@ The RtAudio 6.0.1 source code was extracted into the project directory.
 
 From the root directory of RtAudio, the library was configured and complied using:
 
-'''bash
+```bash
 ./configure
 make all
-'''
+```
 
 
