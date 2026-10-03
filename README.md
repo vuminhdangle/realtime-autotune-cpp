@@ -6,11 +6,15 @@ A soft real-time audio processing system that performs live pitch detection and 
 
 This project was developed as part of the Real-time Signal Processing (TSTR) course at Grenoble INP - Phelma under the supervision of Prof. Olivier Perrotin and Thomas Hueber. Built in C++ using the RtAudio framework, time-domain Autocorrelation, FFT harmonic analysis. and Additive Synthesis with Overlap-Add (OLA). 
 
+**Grade: 19/20.**
+
 [Version francaise]
 
 Un système de traitement audio en temps réel ("soft real-time") réalisant la détection de hauteur (F0) et la correction d'intonation en direct pour la voix chantée. 
 
 Ce projet a été réalisé dans le cadre du cours Traitement du Signal Temps Réel (TSTR) à Grenoble INP - Phelma, sous la direction du Prof. Olivier Perrotin et de Thomas Hueber. Développé en C++ avec l'API RtAudio, l'autocorrélation, l'analyse harmonique par FFT et la synthèse additive avec Overlap-Add (OLA).
+
+**Note obtenue : 19/20.**
 
 ## Getting Started with the RtAudio API
 
@@ -51,4 +55,59 @@ From the root directory of RtAudio, the library was configured and complied usin
 make all
 ```
 
+After compilation, several test programs are avalable in the tests directory, including `audioproble` and `duplex`.
 
+### 1.3. Detecting available audio devices
+
+The `audioprobe` example was used to check the available audio devices and the audio APIs supported by the system:
+
+```bash
+./audioprobe
+```
+
+In my laptop, the program detects 11 audio devices. RtAudio was compiled with the following API:
+```bash
+Compiled APIs:
+0. ALSA (alsa)
+```
+
+The most relevant device for this project is the device 6:
+
+```bash
+Device Name = HDA Intel PCH (ALC256 Analog)
+Device Index = 6
+Output Channels = 2
+Input Channels = 2
+Duplex Channels = 2
+```
+
+This device supports both audio input and output, making it suitable for a full-duplex real-time audio test.
+
+The device supports the following sample rates: 44100 Hz and 48000 Hz with a preferred sample rate of 48000 Hz. 
+
+### 1.4. Testing real-time audio input and output
+
+After identifying the available audio devices, the duplex example was used to test simultaneous audio input and output with the selected device. 
+
+The syntax of the duplex program is:
+
+```bash
+./duplex N fs <iDevice> <oDevice> <iChannelOffset> <oChannelOffset>
+```
+where `N` is the number of channels, `fs` is the sampling rate, `iDevice` and `oDevice` are the input and output device indices, and the last two parameters specify the input and output channel offsets.
+
+The `duplex` example was therefore launched using one channel at a sampling rate of 44100 Hz:
+
+```bash
+./duplex 1 44100 6 6 0 0
+```
+
+The parameters are:
+```text
+1      > one audio channel
+44100  > sampling rate of 44100 Hz
+6      > input device index
+6      > output device index
+0      > input channel offset
+0      > output channel offset
+```
