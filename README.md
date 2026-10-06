@@ -134,3 +134,5 @@ This test was able to run continuously without reporting an audio device or stre
 of audio per buffer.
 
 This confirms that RtAudio can successfully access the laptop's microphone and audio output in full-duplex mode. This configurations provides the basic audio I/O required for the real-time pitch detection and pitch-shifting algorithms developed in the following sections. 
+
+[continue]
