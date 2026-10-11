@@ -202,8 +202,55 @@ The target frequency ($f_0$) and processing mode can be adjusted while the progr
 
 - **Fixed-frequency mode** (`value` > 12): Sets the target frequency to the specified value in Hz. For example, entering 440 sets the target frequency to 440 Hz. 
 - **Autotune mode** (0 < value <= 12): Enables semitone quantization of the detected pitch. The entered integer controls the rounding logic ussed to select the target semitone interval. 
-- Pass*through mode (value <= 0): Disables the frequency override, allowing the synthesis to follow the original detected pitch. 
+- **Pass-through mode** (value <= 0): Disables the frequency override, allowing the synthesis to follow the original detected pitch. 
 - **Quit** (q): Enter q and press Enter to terminate the program and save the data. 
+
+#### 2.5. Output Data and Debugging
+
+##### 2.5.1. Audio Files Used in the Report
+
+For each exercise involving plots or audio synthesis, the corresponding raw signal data has been converted to WAV format and stored in the files directory. 
+
+The directory structure is organized as follows: 
+
+```text
+files/
+└── [exercise_number]/
+    └── [signal_type]/
+        ├── samples_in.wav
+        └── samples_out.wav
+```
+
+For example, the files for exercise q14 and the voice signal are stored in `files/q14/voice/`.
+- `sample_in.wav`: Original input signal used for the analysis. 
+- `sample_out.wav`: Processed output signal. 
+
+##### 2.5.2. Generated Samples and Diagnostic Data
+
+The program saves the following data during execution. The most important files contain the input and output samples, while the remaining files are primarily used for debugging and analysis. 
+
+**Input and output samples**
+- `samples_in.txt`: Input samples.
+- `samples_out.txt`: Output samples. 
+
+**Pitch tracking**
+
+- `f0.txt`: Detected fundamental frequency $f_0$ throughout the recording. 
+- `f0_wanted.txt`: Target fundamental frequency throughout the recording. 
+
+**Harmonic and frequency analysis**
+- `amplitude_harmonics.txt`: Amplitudes of the harmonics from the last processing buffer.
+- `autocorrelation.txt`: Autocorrelation data from the last processing buffer.
+- `fft_real.txt`: Real component of the FFT output from the last processing buffer.
+- `fft_imag.txt`: Imaginary component of the FFT output from the last processing buffer.
+
+**Processing buffers and intermediate data**
+- `outring.txt`: Circular buffer containing the last second of output samples, used for debugging. 
+- `procbuf_create.txt`: Processing buffer captured before program shutdown, after it has been filled with samples. 
+- `procbuf_after_standarize.txt`: Processing buffer captured before program shutdown, after input signal normalization. 
+- `procbuf_resampled.txt`: Processing buffer captured before program shutdown, after additive synthesis. 
+
+[end]
 
 
 
