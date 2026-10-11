@@ -135,4 +135,88 @@ of audio per buffer.
 
 This confirms that RtAudio can successfully access the laptop's microphone and audio output in full-duplex mode. This configurations provides the basic audio I/O required for the real-time pitch detection and pitch-shifting algorithms developed in the following sections. 
 
-[continue]
+### 2. Implementation and Usage
+
+#### 2.1. Integrating the Source Files
+
+The source files `duplex.cpp` and `somefunc_2025.cpp` are provided in the `code` folder. The `somefunc_2025.cpp` file has not been modified. 
+
+To integrate the source files into RtAudio:
+
+1. Copy `duplex.cpp` and `somefunc_2025.cpp` into the `rtaudio-6.0.1/tests/` directory. 
+2. Create an `execution_output` directory inside `tests/`. This directory is used to store the text files containing the generated samples. 
+
+```bash
+cd /path/to/rtaudio-6.0.1/tests
+mkdir -p execution_output
+```
+
+#### 2.2. Compilation
+
+
+After compying the source files into the `tests` directory, navigate to this directory and compile the program using `make`:
+
+```bash
+cd /path/to/rtaudio-6.0.1/tests
+make
+```
+
+Make sure that the appropriate build configuration includes the modified `duplex.cpp` source file. 
+
+
+#### 2.3. Running the Application
+
+The `duplex` program accepts several command-line arguments, described below in the order in which they appear:
+
+| Parameter | Description |
+| --- | --- |
+| `N` | Number of audio channels |
+| `fs` | Sampling rate (use `44100` Hz) |
+| `iDevice` | Input audio device index |
+| `oDevice` | Output audio device index |
+| `iChannelOffset` | Optional input channel offset (use `0` or omit if supported) |
+| `oChannelOffset` | Optional output channel offset (use `0` or omit if supported) |
+| `file_path` | Optional absolute path to a `.bin` file containing input samples. When provided, the input audio device is ignored. |
+
+**Using a microphone as the input source**
+
+To use a microphone for real-time audio input, run:
+
+```bash
+./duplex 1 44100 1 0 0
+```
+
+**Playing back samples from a binary file**
+
+To use a `.bin` file as the input source, run:
+
+```bash
+./duplex 1 44100 1 0 0 0 ~path/to/audio_files/F01_a3_s100_v04.bin
+```
+
+Replace the example file path with the absolute path to your input file. 
+
+#### 2.4. Runtime Controls
+
+The target frequency ($f_0$) and processing mode can be adjusted while the program is running. To change the mode, enter a numerical value in the terminal and press Enter. 
+
+- **Fixed-frequency mode** (`value` > 12): Sets the target frequency to the specified value in Hz. For example, entering 440 sets the target frequency to 440 Hz. 
+- **Autotune mode** (0 < value <= 12): Enables semitone quantization of the detected pitch. The entered integer controls the rounding logic ussed to select the target semitone interval. 
+- Pass*through mode (value <= 0): Disables the frequency override, allowing the synthesis to follow the original detected pitch. 
+- **Quit** (q): Enter q and press Enter to terminate the program and save the data. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
